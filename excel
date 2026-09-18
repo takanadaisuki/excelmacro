@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Excelマクロ・VBAでできること</title>
+
+  <style>
+
+    * {
+
+      box-sizing: border-box;
+
+    }
+
+    body {
+
+      margin: 0;
+
+      font-family: -apple-system, BlinkMacSystemFont,
+
+        "Segoe UI", "Hiragino Kaku Gothic ProN",
+
+        "Yu Gothic", sans-serif;
+
+      background: #f5f7fa;
+
+      color: #222;
+
+      line-height: 1.7;
+
+    }
+
+    header {
+
+      background: linear-gradient(135deg, #107c41, #185c37);
+
+      color: white;
+
+      padding: 70px 20px;
+
+      text-align: center;
+
+    }
+
+    header h1 {
+
+      margin: 0;
+
+      font-size: 2.5rem;
+
+    }
+
+    header p {
+
+      margin-top: 15px;
+
+      font-size: 1.1rem;
+
+      opacity: 0.9;
+
+    }
+
+    main {
+
+      max-width: 1000px;
+
+      margin: auto;
+
+      padding: 40px 20px 80px;
+
+    }
+
+    section {
+
+      background: white;
+
+      margin-bottom: 30px;
+
+      padding: 35px;
+
+      border-radius: 16px;
+
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+
+    }
+
+    h2 {
+
+      margin-top: 0;
+
+      color: #107c41;
+
+      border-left: 6px solid #107c41;
+
+      padding-left: 12px;
+
+    }
+
+    h3 {
+
+      margin-top: 30px;
+
+    }
+
+    .highlight {
+
+      background: #e8f5ee;
+
+      padding: 20px;
+
+      border-radius: 10px;
+
+      font-size: 1.1rem;
+
+      font-weight: bold;
+
+    }
+
+    .cards {
+
+      display: grid;
+
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
+      gap: 15px;
+
+      margin-top: 25px;
+
+    }
+
+    .card {
+
+      border: 1px solid #ddd;
+
+      padding: 20px;
+
+      border-radius: 12px;
+
+      background: #fafafa;
+
+    }
+
+    .card strong {
+
+      color: #107c41;
+
+    }
+
+    table {
+
+      width: 100%;
+
+      border-collapse: collapse;
+
+      margin-top: 20px;
+
+    }
+
+    th,
+
+    td {
+
+      border: 1px solid #ccc;
+
+      padding: 12px;
+
+      text-align: center;
+
+    }
+
+    th {
+
+      background: #107c41;
+
+      color: white;
+
+    }
+
+    .excel-demo {
+
+      overflow-x: auto;
+
+    }
+
+    .demo-table td {
+
+      min-width: 100px;
+
+    }
+
+    .green {
+
+      background: #c6efce;
+
+    }
+
+    .yellow {
+
+      background: #ffeb9c;
+
+    }
+
+    button {
+
+      border: none;
+
+      background: #107c41;
+
+      color: white;
+
+      padding: 11px 18px;
+
+      margin: 5px;
+
+      border-radius: 8px;
+
+      cursor: pointer;
+
+      font-size: 0.95rem;
+
+    }
+
+    button:hover {
+
+      background: #0b6333;
+
+    }
+
+    .reset {
+
+      background: #666;
+
+    }
+
+    pre {
+
+      background: #1e1e1e;
+
+      color: #eee;
+
+      padding: 20px;
+
+      overflow-x: auto;
+
+      border-radius: 10px;
+
+      line-height: 1.5;
+
+    }
+
+    code {
+
+      font-family: Consolas, monospace;
+
+    }
+
+    .flow {
+
+      display: grid;
+
+      grid-template-columns: 1fr 70px 1fr;
+
+      gap: 15px;
+
+      align-items: center;
+
+      margin-top: 25px;
+
+    }
+
+    .flow-box {
+
+      padding: 25px;
+
+      background: #f1f1f1;
+
+      border-radius: 12px;
+
+      text-align: center;
+
+    }
+
+    .macro-box {
+
+      background: #e8f5ee;
+
+      border: 2px solid #107c41;
+
+    }
+
+    .arrow {
+
+      font-size: 2rem;
+
+      text-align: center;
+
+    }
+
+    footer {
+
+      text-align: center;
+
+      padding: 30px;
+
+      color: #777;
+
+    }
+
+    @media (max-width: 650px) {
+
+      header h1 {
+
+        font-size: 1.8rem;
+
+      }
+
+      section {
+
+        padding: 25px 18px;
+
+      }
+
+      .flow {
+
+        grid-template-columns: 1fr;
+
+      }
+
+      .arrow {
+
+        transform: rotate(90deg);
+
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+<header>
+
+  <h1>Excel マクロ・VBAでできること</h1>
+
+  <p>
+
+    面倒なExcel作業を、自動化してみよう
+
+  </p>
+
+</header>
+
+<main>
+
+  <!-- マクロとは -->
+
+  <section>
+
+    <h2>マクロとは？</h2>
+
+    <p>
+
+      Excelで普段行っている操作を記録し、
+
+      同じ処理を自動で実行できる仕組みです。
+
+    </p>
+
+    <div class="highlight">
+
+      「Excelに、この作業を覚えて代わりにやってもらう」
+
+      と考えると分かりやすいです。
+
+    </div>
+
+    <h3>例えば…</h3>
+
+    <p>
+
+      毎月こんな作業をしているとします。
+
+    </p>
+
+    <ol>
+
+      <li>データをコピーする</li>
+
+      <li>別のシートに貼り付ける</li>
+
+      <li>不要な行を削除する</li>
+
+      <li>合計を計算する</li>
+
+      <li>セルに色を付ける</li>
+
+      <li>ファイルを保存する</li>
+
+    </ol>
+
+    <p>
+
+      マクロを使えば、この一連の作業を
+
+      <strong>ボタン1つ</strong>で実行することもできます。
+
+    </p>
+
+  </section>
+
+  <!-- VBA -->
+
+  <section>
+
+    <h2>VBAとは？</h2>
+
+    <p>
+
+      VBAは
+
+      <strong>Visual Basic for Applications</strong>
+
+      の略です。
+
+    </p>
+
+    <p>
+
+      ExcelなどのMicrosoft Officeを
+
+      自動操作するために使われるプログラミング言語です。
+
+    </p>
+
+    <table>
+
+      <tr>
+
+        <th>言葉</th>
+
+        <th>意味</th>
+
+      </tr>
+
+      <tr>
+
+        <td>マクロ</td>
+
+        <td>自動化された処理</td>
+
+      </tr>
+
+      <tr>
+
+        <td>VBA</td>
+
+        <td>マクロを作るために使うプログラミング言語</td>
+
+      </tr>
+
+    </table>
+
+  </section>
+
+  <!-- できること -->
+
+  <section>
+
+    <h2>マクロでできること</h2>
+
+    <div class="cards">
+
+      <div class="card">
+
+        <strong>コピー・貼り付け</strong>
+
+        <p>
+
+          値、数式、書式などを指定してコピーできます。
+
+        </p>
+
+      </div>
+
+      <div class="card">
+
+        <strong>計算</strong>
+
+        <p>
+
+          合計、平均、最大値などを自動で計算できます。
+
+        </p>
+
+      </div>
+
+      <div class="card">
+
+        <strong>データ整理</strong>
+
+        <p>
+
+          並び替え、フィルター、不要データ削除などを自動化できます。
+
+        </p>
+
+      </div>
+
+      <div class="card">
+
+        <strong>書式変更</strong>
+
+        <p>
+
+          色、文字サイズ、罫線などを自動で変更できます。
+
+        </p>
+
+      </div>
+
+      <div class="card">
+
+        <strong>グラフ作成</strong>
+
+        <p>
+
+          集計結果から自動でグラフを作ることもできます。
+
+        </p>
+
+      </div>
+
+      <div class="card">
+
+        <strong>ファイル操作</strong>
+
+        <p>
+
+          Excelファイルを開く、保存する、名前を変えるなどの操作ができます。
+
+        </p>
+
+      </div>
+
+      <div class="card">
+
+        <strong>複数シート処理</strong>
+
+        <p>
+
+          何十枚ものシートをまとめて処理できます。
+
+        </p>
+
+      </div>
+
+      <div class="card">
+
+        <strong>他のOfficeとの連携</strong>
+
+        <p>
+
+          OutlookやWordなどと連携することもできます。
+
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- コピー -->
+
+  <section>
+
+    <h2>コピーだけでも種類がある</h2>
+
+    <p>
+
+      Excelでは「コピー」といっても、
+
+      コピーする内容を選ぶことができます。
+
+    </p>
+
+    <table>
+
+      <tr>
+
+        <th>コピー方法</th>
+
+        <th>コピーされるもの</th>
+
+      </tr>
+
+      <tr>
+
+        <td>通常コピー</td>
+
+        <td>値・数式・書式など</td>
+
+      </tr>
+
+      <tr>
+
+        <td>値のみ</td>
+
+        <td>表示されている値</td>
+
+      </tr>
+
+      <tr>
+
+        <td>数式のみ</td>
+
+        <td>計算式</td>
+
+      </tr>
+
+      <tr>
+
+        <td>書式のみ</td>
+
+        <td>色・罫線・文字サイズなど</td>
+
+      </tr>
+
+      <tr>
+
+        <td>列幅</td>
+
+        <td>列の幅</td>
+
+      </tr>
+
+    </table>
+
+  </section>
+
+  <!-- インタラクティブ -->
+
+  <section>
+
+    <h2>実際にコピーしてみる</h2>
+
+    <p>
+
+      左側のセルをコピーして、
+
+      右側に貼り付けるイメージです。
+
+    </p>
+
+    <div class="excel-demo">
+
+      <table class="demo-table">
+
+        <tr>
+
+          <th>コピー元</th>
+
+          <th>コピー先</th>
+
+        </tr>
+
+        <tr>
+
+          <td
+
+            id="source"
+
+            class="green"
+
+            style="font-weight:bold;"
+
+          >
+
+            100
+
+          </td>
+
+          <td id="destination">
+
+            -
+
+          </td>
+
+        </tr>
+
+      </table>
+
+    </div>
+
+    <div style="margin-top:20px;">
+
+      <button onclick="copyAll()">
+
+        全部コピー
+
+      </button>
+
+      <button onclick="copyValue()">
+
+        値だけコピー
+
+      </button>
+
+      <button onclick="copyFormat()">
+
+        書式だけコピー
+
+      </button>
+
+      <button class="reset" onclick="resetDemo()">
+
+        リセット
+
+      </button>
+
+    </div>
+
+    <p id="message">
+
+      ボタンを押してください。
+
+    </p>
+
+  </section>
+
+  <!-- VBAコード -->
+
+  <section>
+
+    <h2>実際のVBAコード</h2>
+
+    <h3>普通にコピー</h3>
+
+<pre><code>Range("A1").Copy Destination:=Range("B1")</code></pre>
+
+    <p>
+
+      A1セルの内容をB1セルへコピーします。
+
+    </p>
+
+    <h3>値だけコピー</h3>
+
+<pre><code>Range("A1").Copy
+
+Range("B1").PasteSpecial _
+
+    Paste:=xlPasteValues</code></pre>
+
+    <p>
+
+      数式や色などはコピーせず、
+
+      値だけを貼り付けます。
+
+    </p>
+
+    <h3>書式だけコピー</h3>
+
+<pre><code>Range("A1").Copy
+
+Range("B1").PasteSpecial _
+
+    Paste:=xlPasteFormats</code></pre>
+
+    <p>
+
+      値はコピーせず、
+
+      セルの色や文字などの書式だけをコピーします。
+
+    </p>
+
+  </section>
+
+  <!-- 人とマクロ -->
+
+  <section>
+
+    <h2>人が操作する場合との違い</h2>
+
+    <div class="flow">
+
+      <div class="flow-box">
+
+        <h3>人が操作</h3>
+
+        <p>
+
+          コピー
+
+          <br>
+
+          ↓
+
+          <br>
+
+          貼り付け
+
+          <br>
+
+          ↓
+
+          <br>
+
+          色変更
+
+          <br>
+
+          ↓
+
+          <br>
+
+          計算
+
+          <br>
+
+          ↓
+
+          <br>
+
+          保存
+
+        </p>
+
+      </div>
+
+      <div class="arrow">
+
+        →
+
+      </div>
+
+      <div class="flow-box macro-box">
+
+        <h3>マクロ</h3>
+
+        <p style="font-size:1.5rem;">
+
+          ボタンを押す
+
+        </p>
+
+        <p>
+
+          あとはExcelが自動実行
+
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- 向いている作業 -->
+
+  <section>
+
+    <h2>どんな作業に向いている？</h2>
+
+    <p>
+
+      特に次のような作業は、
+
+      マクロによる自動化と相性が良いです。
+
+    </p>
+
+    <div class="highlight">
+
+      ✓ 毎日・毎週・毎月繰り返す作業
+
+      <br><br>
+
+      ✓ 同じ操作を大量のデータに行う作業
+
+      <br><br>
+
+      ✓ 人による操作ミスを減らしたい作業
+
+      <br><br>
+
+      ✓ 手順がほぼ決まっている作業
+
+    </div>
+
+  </section>
+
+  <!-- まとめ -->
+
+  <section>
+
+    <h2>まとめ</h2>
+
+    <p>
+
+      マクロ・VBAの最大のメリットは、
+
+      <strong>人が繰り返している作業をExcelに任せられること</strong>
+
+      です。
+
+    </p>
+
+    <p>
+
+      数秒の作業でも、
+
+      毎日何度も繰り返しているのであれば、
+
+      自動化することで大きな時間短縮につながります。
+
+    </p>
+
+  </section>
+
+</main>
+
+<footer>
+
+  Excel Macro / VBA Learning Page
+
+</footer>
+
+<script>
+
+  const source = document.getElementById("source");
+
+  const destination = document.getElementById("destination");
+
+  const message = document.getElementById("message");
+
+  function copyAll() {
+
+    destination.innerText = source.innerText;
+
+    destination.className = source.className;
+
+    destination.style.fontWeight =
+
+      source.style.fontWeight;
+
+    message.innerText =
+
+      "値と書式をまとめてコピーしました。";
+
+  }
+
+  function copyValue() {
+
+    destination.innerText =
+
+      source.innerText;
+
+    message.innerText =
+
+      "値だけコピーしました。色や文字の太さはコピーされません。";
+
+  }
+
+  function copyFormat() {
+
+    destination.className =
+
+      source.className;
+
+    destination.style.fontWeight =
+
+      source.style.fontWeight;
+
+    message.innerText =
+
+      "書式だけコピーしました。値は変更されません。";
+
+  }
+
+  function resetDemo() {
+
+    destination.innerText = "-";
+
+    destination.className = "";
+
+    destination.style.fontWeight =
+
+      "normal";
+
+    message.innerText =
+
+      "ボタンを押してください。";
+
+  }
+
+</script>
+
+</body>
+
+</html>
